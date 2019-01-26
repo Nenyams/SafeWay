@@ -19,8 +19,58 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        Test code for uploading - works!
+//        let origin = Location(latitude: 50.2, longitude: 20.3)
+//        let destination = Location(latitude: 2.3, longitude: 13.4)
+//        let arriveBy = MapTime(hour: 23, minute: 14, timezone: -1)
+//        let journey = JourneyRequest(origin: origin, destination: destination, arrive_by: arriveBy, safety_priority: 2)
+//        self.upload(request: journey)
   }
 
+    func upload(request: JourneyRequest){
+        let encoder = JSONEncoder()
+        let requestData = try! encoder.encode(request)
+        let url = URL(string: "https://safeway19.herokuapp.com/safeway/route")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = requestData
+        let (data, response, error) = URLSession.shared.synchronouslyExecute(request)
+        print(response, String(data: data!, encoding: .utf8))
+    }
 }
 
+extension URLSession {
+    func synchronouslyExecute(_ request:URLRequest) -> (Data?, URLResponse?, NSError?) {
+        var data: Data?, response: URLResponse?, error: NSError?
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        dataTask(with: request, completionHandler: {
+            data = $0; response = $1; error = $2 as NSError?
+            semaphore.signal()
+        }) .resume()
+        let timeout = DispatchTime.now() + Double(10000000000) / Double(NSEC_PER_SEC)
+        
+        semaphore.wait(timeout: timeout)
+        
+        return (data, response, error)
+    }
+}
+
+struct JourneyRequest:Codable {
+    var origin: Location
+    var destination: Location
+    var arrive_by: MapTime?
+    var safety_priority: Float
+}
+
+struct Location:Codable {
+    var latitude: Float
+    var longitude: Float
+}
+
+struct MapTime:Codable{
+    var hour: Int
+    var minute: Int
+    var timezone: Int
+}
