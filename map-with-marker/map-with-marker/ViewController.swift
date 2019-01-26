@@ -73,4 +73,11 @@ struct MapTime:Codable{
     var hour: Int
     var minute: Int
     var timezone: Int
+    
+    init(date: Date) {
+        let calendar = Calendar(identifier: .gregorian)
+        self.hour = calendar.component(.hour, from: date)
+        self.minute = calendar.component(.minute, from: date)
+        self.timezone = 0
+    }
 }
