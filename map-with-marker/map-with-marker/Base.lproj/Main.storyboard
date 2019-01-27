@@ -12,6 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="map_with_marker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -33,24 +34,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cU-XZ-5Xu" userLabel="StepOne" colorLabel="IBBuiltInLabel-Gray">
                                 <rect key="frame" x="16" y="106" width="343" height="136"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where To?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gCN-n0-Wjr">
-                                        <rect key="frame" x="8" y="96" width="327" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="nPt-T9-qdS"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where From?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xc5-qS-zNC">
-                                        <rect key="frame" x="8" y="56" width="327" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="HEx-Ti-RkK"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="1. Tell us about your journey" translatesAutoresizingMaskIntoConstraints="NO" id="GgA-kb-X0I">
                                         <rect key="frame" x="0.0" y="8" width="343" height="40"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,19 +43,47 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1c-F7-de6">
+                                        <rect key="frame" x="8" y="56" width="327" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="tkq-OH-sBL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Where from?">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="presentOriginViewController:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pVe-kF-oeV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k9X-DF-Fbv">
+                                        <rect key="frame" x="8" y="96" width="327" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="9Jq-Cz-4Ae"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Where to?">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="presentDestinationViewController:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bws-yR-zWZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="gCN-n0-Wjr" firstAttribute="leading" secondItem="3cU-XZ-5Xu" secondAttribute="leading" constant="8" id="BHl-NB-hpl"/>
-                                    <constraint firstAttribute="trailing" secondItem="gCN-n0-Wjr" secondAttribute="trailing" constant="8" id="Klk-lf-eum"/>
-                                    <constraint firstItem="gCN-n0-Wjr" firstAttribute="top" secondItem="xc5-qS-zNC" secondAttribute="bottom" constant="8" id="Ltz-Iq-56F"/>
+                                    <constraint firstItem="k9X-DF-Fbv" firstAttribute="top" secondItem="I1c-F7-de6" secondAttribute="bottom" constant="8" id="1nQ-6K-5qY"/>
+                                    <constraint firstItem="I1c-F7-de6" firstAttribute="top" secondItem="GgA-kb-X0I" secondAttribute="bottom" constant="8" id="3z5-ta-t29"/>
+                                    <constraint firstAttribute="trailing" secondItem="I1c-F7-de6" secondAttribute="trailing" constant="8" id="CGC-4F-Yss"/>
                                     <constraint firstItem="GgA-kb-X0I" firstAttribute="leading" secondItem="3cU-XZ-5Xu" secondAttribute="leading" id="PU5-lg-oYF"/>
-                                    <constraint firstItem="xc5-qS-zNC" firstAttribute="leading" secondItem="3cU-XZ-5Xu" secondAttribute="leading" constant="8" id="YFp-H5-QgS"/>
-                                    <constraint firstItem="xc5-qS-zNC" firstAttribute="top" secondItem="GgA-kb-X0I" secondAttribute="bottom" constant="8" id="b6n-72-p0Z"/>
+                                    <constraint firstItem="I1c-F7-de6" firstAttribute="leading" secondItem="3cU-XZ-5Xu" secondAttribute="leading" constant="8" id="UX7-W8-C7i"/>
+                                    <constraint firstAttribute="bottom" secondItem="k9X-DF-Fbv" secondAttribute="bottom" constant="8" id="XKl-9E-Wr6"/>
                                     <constraint firstAttribute="trailing" secondItem="GgA-kb-X0I" secondAttribute="trailing" id="feQ-YJ-gYq"/>
-                                    <constraint firstAttribute="bottom" secondItem="gCN-n0-Wjr" secondAttribute="bottom" constant="8" id="gGR-Qn-R5E"/>
                                     <constraint firstItem="GgA-kb-X0I" firstAttribute="top" secondItem="3cU-XZ-5Xu" secondAttribute="top" constant="8" id="n54-JO-TLl"/>
-                                    <constraint firstAttribute="trailing" secondItem="xc5-qS-zNC" secondAttribute="trailing" constant="8" id="uJC-0r-Kld"/>
+                                    <constraint firstAttribute="trailing" secondItem="k9X-DF-Fbv" secondAttribute="trailing" constant="8" id="qNL-ha-4Dr"/>
+                                    <constraint firstItem="k9X-DF-Fbv" firstAttribute="leading" secondItem="3cU-XZ-5Xu" secondAttribute="leading" constant="8" id="rTa-FP-xhi"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9yU-4z-iQm" userLabel="StepTwo">
@@ -97,7 +108,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="8Gk-Ji-6vj">
+                                    <datePicker contentMode="scaleToFill" restorationIdentifier="neneDatePicker" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="8Gk-Ji-6vj">
                                         <rect key="frame" x="8" y="80" width="327" height="85"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="85" id="5wS-3A-LHe"/>
@@ -186,11 +197,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="destination" destination="gCN-n0-Wjr" id="ie9-aT-x2m"/>
-                        <outlet property="origin" destination="xc5-qS-zNC" id="K2E-kH-xXd"/>
+                        <outlet property="datePicker" destination="8Gk-Ji-6vj" id="6te-0o-jsM"/>
+                        <outlet property="safetySlider" destination="0LV-rD-N5K" id="Atc-jt-8bE"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="141.59999999999999" y="27.436281859070466"/>
         </scene>

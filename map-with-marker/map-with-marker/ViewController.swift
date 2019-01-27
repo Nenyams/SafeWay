@@ -14,11 +14,26 @@
  */
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
 class ViewController: UIViewController {
+    let originViewController = GMSAutocompleteViewController()
+    let destinationViewController = GMSAutocompleteViewController()
+    var originLatitude = 0.0, originLongitude = 0.0, destinationLatitude = 0.0, destinationLongitude = 0.0
+    var priorityValue = 0.0
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var safetySlider: UISlider!
+    
+    @IBAction func presentOriginViewController(_ sender: Any) {
+            originViewController.delegate = self
+            present(originViewController, animated: true, completion: nil)
+        }
+    @IBAction func presentDestinationViewController(_ sender: Any) {
+        destinationViewController.delegate = self
+        present(destinationViewController, animated: true, completion: nil)
+    }
 
-    @IBOutlet weak var origin: UITextField!
-    @IBOutlet weak var destination: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +45,14 @@ class ViewController: UIViewController {
 //        self.upload(request: journey)
   }
 
+//    func getLocation (_ input: GMSPlace) -> (location: ) {
+        
+//    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let journeyRequest = JourneyRequest {}
+//    }
+    
     func upload(request: JourneyRequest){
         let encoder = JSONEncoder()
         let requestData = try! encoder.encode(request)
@@ -39,6 +62,64 @@ class ViewController: UIViewController {
         request.httpBody = requestData
         let (data, response, error) = URLSession.shared.synchronouslyExecute(request)
         print(response, String(data: data!, encoding: .utf8))
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        print(self.originLongitude, self.destinationLongitude)
+        if self.originLatitude != 0.0 && self.destinationLongitude != 0.0{
+            let origin = Location(latitude: Float(self.originLongitude),longitude: Float(self.originLatitude))
+            let destination = Location(latitude: Float(self.destinationLongitude), longitude: Float(self.destinationLatitude))
+            let journey = JourneyRequest(origin: origin, destination: destination, arrive_by: MapTime(date: self.datePicker.date), safety_priority: self.safetySlider.value)
+            self.upload(request: journey)
+            if let destinationViewController = segue.destination as? MapViewController{
+//                When we get the data back from the server, set the route in the map view controller here.
+            }
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if self.originLatitude == 0.0 && self.destinationLongitude == 0.0{
+            return false
+        }
+        return true
+    }
+}
+
+extension ViewController:  GMSAutocompleteViewControllerDelegate {
+   
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        if viewController == originViewController {
+            originLatitude = place.coordinate.latitude
+            originLongitude = place.coordinate.longitude
+        }
+        else {
+            destinationLatitude = place.coordinate.latitude
+            destinationLongitude = place.coordinate.longitude
+        }
+        //print(place.coordinate.latitude)
+        //print(place.name)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 

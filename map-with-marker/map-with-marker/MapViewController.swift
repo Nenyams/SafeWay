@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var myMap: GMSMapView!
     @IBOutlet weak var routeUpdate: UITextView!
+    var route:[Location]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
