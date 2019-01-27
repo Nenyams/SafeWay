@@ -369,7 +369,7 @@
 				DEVELOPMENT_TEAM = 2UVJLV4H48;
 				INFOPLIST_FILE = "map-with-marker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.google.examples.map-with-marker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yamasaki.nene.aegis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.2;
@@ -384,7 +384,7 @@
 				DEVELOPMENT_TEAM = 2UVJLV4H48;
 				INFOPLIST_FILE = "map-with-marker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.google.examples.map-with-marker";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yamasaki.nene.aegis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.2;

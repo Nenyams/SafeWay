@@ -17,24 +17,11 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController {
     let originViewController = GMSAutocompleteViewController()
     let destinationViewController = GMSAutocompleteViewController()
     var originLatitude = 0.0, originLongitude = 0.0, destinationLatitude = 0.0, destinationLongitude = 0.0
     var priorityValue = 0.0
-    
-    // Getting Current Location
-//    var locationManager = CLLocationManager()
-//    var currentLocation: CLLocation?
-//    var mapView: GMSMapView!
-//    var placesClient: GMSPlacesClient!
-//    var zoomLevel: Float = 15.0
-//    func enableLocationServices() {
-//        locationManager.delegate = self
-//        if CLLocationManager.authorizationStatus() == .notDetermined {
-//            locationManager.requestWhenInUseAuthorization()
-//        }
-//    }
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var safetySlider: UISlider!
@@ -51,16 +38,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        Test code for uploading - works!
-//        let origin = Location(latitude: 50.2, longitude: 20.3)
-//        let destination = Location(latitude: 2.3, longitude: 13.4)
-//        let arriveBy = MapTime(hour: 23, minute: 14, timezone: -1)
-//        let journey = JourneyRequest(origin: origin, destination: destination, arrive_by: arriveBy, safety_priority: 2)
-//        self.upload(request: journey)
   }
 
 //    func getLocation (_ input: GMSPlace) -> (location: ) {
-        
+    
 //    }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

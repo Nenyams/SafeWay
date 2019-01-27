@@ -8,23 +8,35 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
+import GooglePlacePicker
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var myMap: GMSMapView!
     @IBOutlet weak var routeUpdate: UITextView!
-    
     var route: GMSPath?
     var journey: JourneyRequest? //pased by ViewController.prepare(for:)
+    var zoomLevel: Float = 100.0
+    
+    var locationManager: CLLocationManager!
+    var placePicker: GMSPlacePickerViewController!
+    var currentLatitude: Double!
+    var currentLongitude: Double!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let camera = GMSCameraPosition.camera(withLatitude: 51.516, longitude: -0.150, zoom: 14.0)
-        myMap.camera = camera
+        //Current Location
+        var locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        //placesClient = GMSPlacesClient.shared()
         
-        
-        self.view.bringSubviewToFront(routeUpdate)
+        let camera = GMSCameraPosition.camera(withLatitude: 52.2053, longitude: 0.1218, zoom: zoomLevel)
+            myMap.camera = camera
     }
     
 
@@ -72,18 +84,58 @@ class MapViewController: UIViewController {
         let update = GMSCameraUpdate.fit(bounds, withPadding: 50.0)
         myMap.moveCamera(update)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func locationManager(_ manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation]){
+        // 1
+        let location:CLLocation = locations.last!
+        self.currentLatitude = location.coordinate.latitude
+        self.currentLongitude = location.coordinate.longitude
+        
+        // 2
+        let coordinates = CLLocationCoordinate2DMake(self.currentLatitude, self.currentLongitude)
+        let marker = GMSMarker(position: coordinates)
+        marker.title = "I am here"
+        marker.map = self.myMap
+        self.myMap.animate(toLocation: coordinates)
     }
-    */
-
 }
+
+//extension MapViewController: CLLocationManagerDelegate {
+//    // Handle incoming location events.
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let location: CLLocation = locations.last!
+//        print("Location: \(location)")
+//
+//        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+//                                              longitude: location.coordinate.longitude,
+//                                              zoom: zoomLevel)
+//
+//        if myMap.isHidden {
+//            myMap.isHidden = false
+//            myMap.camera = camera
+//        } else {
+//            myMap.animate(to: camera)
+//        }
+//    }
+//
+//    // Handle authorization for the location manager.
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        switch status {
+//        case .restricted:
+//            print("Location access was restricted.")
+//        case .denied:
+//            print("User denied access to location.")
+//            // Display the map using the default location.
+//            myMap.isHidden = false
+//        case .notDetermined:
+//            print("Location status not determined.")
+//        case .authorizedAlways: fallthrough
+//        case .authorizedWhenInUse:
+//            print("Location status is OK.")
+//        }
+//    }
+//}
 
 extension MapViewController {
     class func displaySpinner(onView : UIView) -> UIView {
