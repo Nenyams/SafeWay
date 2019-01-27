@@ -53,28 +53,14 @@ class ViewController: UIViewController {
 //        let journeyRequest = JourneyRequest {}
 //    }
     
-    func upload(request: JourneyRequest){
-        let encoder = JSONEncoder()
-        let requestData = try! encoder.encode(request)
-        let url = URL(string: "https://safeway19.herokuapp.com/safeway/route")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = requestData
-        let (data, response, error) = URLSession.shared.synchronouslyExecute(request)
-        print(response, String(data: data!, encoding: .utf8))
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        print(self.originLongitude, self.destinationLongitude)
-        if self.originLatitude != 0.0 && self.destinationLongitude != 0.0{
-            let origin = Location(latitude: Float(self.originLongitude),longitude: Float(self.originLatitude))
-            let destination = Location(latitude: Float(self.destinationLongitude), longitude: Float(self.destinationLatitude))
-            let journey = JourneyRequest(origin: origin, destination: destination, arrive_by: MapTime(date: self.datePicker.date), safety_priority: self.safetySlider.value)
-            self.upload(request: journey)
-            if let destinationViewController = segue.destination as? MapViewController{
-//                When we get the data back from the server, set the route in the map view controller here.
-            }
+        let origin = Location(latitude: Float(self.originLongitude),longitude: Float(self.originLatitude))
+        let destination = Location(latitude: Float(self.destinationLongitude), longitude: Float(self.destinationLatitude))
+        let journey = JourneyRequest(origin: origin, destination: destination, arrive_by: MapTime(date: self.datePicker.date), safety_priority: self.safetySlider.value)
+        if let destinationViewController = segue.destination as? MapViewController{
+            destinationViewController.journey = journey
+            destinationViewController.findRoute()
         }
     }
     
