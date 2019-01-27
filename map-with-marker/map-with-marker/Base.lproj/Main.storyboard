@@ -42,7 +42,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1c-F7-de6">
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Origin" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1c-F7-de6">
                                         <rect key="frame" x="8" y="56" width="327" height="32"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -197,6 +197,8 @@
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="8Gk-Ji-6vj" id="6te-0o-jsM"/>
+                        <outlet property="destinationButton" destination="k9X-DF-Fbv" id="Z0g-zO-vov"/>
+                        <outlet property="originButton" destination="I1c-F7-de6" id="mHC-XV-yRK"/>
                         <outlet property="safetySlider" destination="0LV-rD-N5K" id="Atc-jt-8bE"/>
                     </connections>
                 </viewController>
@@ -212,11 +214,11 @@
                         <viewControllerLayoutGuide type="top" id="YTQ-DI-tlv"/>
                         <viewControllerLayoutGuide type="bottom" id="3EI-b7-aCp"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2rN-xk-SOw" customClass="GMSMapView">
+                    <view key="view" contentMode="scaleToFill" id="2rN-xk-SOw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OiM-gL-vaq">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OiM-gL-vaq">
                                 <rect key="frame" x="67" y="612" width="240" height="35"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
@@ -230,14 +232,14 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="OiM-gL-vaq" firstAttribute="leading" secondItem="2rN-xk-SOw" secondAttribute="leadingMargin" id="2iO-kC-lpB"/>
-                            <constraint firstItem="3EI-b7-aCp" firstAttribute="top" secondItem="OiM-gL-vaq" secondAttribute="bottom" id="3n7-0A-lQc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OiM-gL-vaq" secondAttribute="trailing" id="FwJ-rw-86E"/>
+                            <constraint firstItem="P31-89-Gvl" firstAttribute="height" secondItem="2rN-xk-SOw" secondAttribute="height" id="aUT-v4-AZn"/>
                             <constraint firstItem="3EI-b7-aCp" firstAttribute="top" secondItem="P31-89-Gvl" secondAttribute="bottom" id="iDN-Ln-J2Q"/>
                             <constraint firstAttribute="trailing" secondItem="P31-89-Gvl" secondAttribute="trailing" id="iWZ-GT-y2l"/>
                             <constraint firstItem="P31-89-Gvl" firstAttribute="top" secondItem="2rN-xk-SOw" secondAttribute="top" id="qmp-DY-7q3"/>
+                            <constraint firstItem="P31-89-Gvl" firstAttribute="centerX" secondItem="2rN-xk-SOw" secondAttribute="centerX" id="vBG-Mq-JJS"/>
                             <constraint firstItem="P31-89-Gvl" firstAttribute="leading" secondItem="2rN-xk-SOw" secondAttribute="leading" id="vSv-Oy-IjH"/>
                         </constraints>
                     </view>

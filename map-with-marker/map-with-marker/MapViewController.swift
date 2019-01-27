@@ -13,23 +13,16 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var myMap: GMSMapView!
     @IBOutlet weak var routeUpdate: UITextView!
-    var route:GMSPath?
-    var journey: JourneyRequest?
+    
+    var route: GMSPath?
+    var journey: JourneyRequest? //pased by ViewController.prepare(for:)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let camera = GMSCameraPosition.camera(withLatitude: 51.516, longitude: -0.150, zoom: 14.0)
-//        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        view = mapView
         myMap.camera = camera
         
-//        // Creates a marker in the center of the map.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-//        marker.title = "Sydney"
-//        marker.snippet = "Australia"
-//        marker.map = myMap
         
         self.view.bringSubviewToFront(routeUpdate)
     }
@@ -69,14 +62,15 @@ class MapViewController: UIViewController {
         print(journeyInfo)
         let path = GMSPath(fromEncodedPath: journeyInfo.overview_polyline.points)
         let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = 5
+        polyline.spans = [GMSStyleSpan(color: .orange)]
         print(polyline)
         polyline.map = self.myMap
         let northEastCoords = CLLocationCoordinate2DMake(CLLocationDegrees(journeyInfo.bounds.northeast.lat), CLLocationDegrees(journeyInfo.bounds.northeast.lng))
         let southWestCoords = CLLocationCoordinate2DMake(CLLocationDegrees(journeyInfo.bounds.southwest.lat), CLLocationDegrees(journeyInfo.bounds.southwest.lng))
         let bounds = GMSCoordinateBounds(coordinate: northEastCoords, coordinate: southWestCoords)
-        let camera = myMap.camera(for: bounds, insets: UIEdgeInsets())!
-        myMap.camera = camera
-        print(myMap.camera)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 50.0)
+        myMap.moveCamera(update)
     }
 
     /*
