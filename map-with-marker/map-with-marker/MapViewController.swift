@@ -33,7 +33,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        //placesClient = GMSPlacesClient.shared()
         
         let camera = GMSCameraPosition.camera(withLatitude: 52.2053, longitude: 0.1218, zoom: zoomLevel)
             myMap.camera = camera
@@ -83,10 +82,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         let bounds = GMSCoordinateBounds(coordinate: northEastCoords, coordinate: southWestCoords)
         let update = GMSCameraUpdate.fit(bounds, withPadding: 50.0)
         myMap.moveCamera(update)
+        let placesClient = GMSPlacesClient.shared()
+        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoodList = placeLikelihoodList {
+                for likelihood in placeLikelihoodList.likelihoods {
+                    let place = likelihood.place
+                    print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
+                    print("Current Place address \(place.formattedAddress)")
+                    print("Current Place attributions \(place.attributions)")
+                    print("Current PlaceID \(place.placeID)")
+                }
+                let location = placeLikelihoodList.likelihoods[0].place
+                let currentLatitude = location.coordinate.latitude
+                let currentLongitude = location.coordinate.longitude
+                let coordinates = CLLocationCoordinate2DMake(currentLatitude, currentLongitude)
+                let marker = GMSMarker(position: coordinates)
+                marker.icon = UIImage(named: "Marker")
+                marker.title = "I am here"
+                marker.map = self.myMap
+                self.myMap.animate(toLocation: coordinates)
+            }
+        })
     }
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
+        print("locationsManager called")
         // 1
         let location:CLLocation = locations.last!
         self.currentLatitude = location.coordinate.latitude

@@ -128,7 +128,7 @@
 				TargetAttributes = {
 					E5AA15671E006EC3005DF256 = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = 2UVJLV4H48;
+						DevelopmentTeam = KZDMSZY72Y;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
@@ -366,7 +366,7 @@
 			baseConfigurationReference = 766B4511838A776D94BCC49C /* Pods-map-with-marker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2UVJLV4H48;
+				DEVELOPMENT_TEAM = KZDMSZY72Y;
 				INFOPLIST_FILE = "map-with-marker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamasaki.nene.aegis;
@@ -381,7 +381,7 @@
 			baseConfigurationReference = 517124155FDB6CF9987332A4 /* Pods-map-with-marker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2UVJLV4H48;
+				DEVELOPMENT_TEAM = KZDMSZY72Y;
 				INFOPLIST_FILE = "map-with-marker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamasaki.nene.aegis;
