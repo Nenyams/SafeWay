@@ -42,7 +42,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1c-F7-de6">
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Origin" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1c-F7-de6">
                                         <rect key="frame" x="8" y="56" width="327" height="32"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -197,6 +197,8 @@
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="8Gk-Ji-6vj" id="6te-0o-jsM"/>
+                        <outlet property="destinationButton" destination="k9X-DF-Fbv" id="Z0g-zO-vov"/>
+                        <outlet property="originButton" destination="I1c-F7-de6" id="mHC-XV-yRK"/>
                         <outlet property="safetySlider" destination="0LV-rD-N5K" id="Atc-jt-8bE"/>
                     </connections>
                 </viewController>

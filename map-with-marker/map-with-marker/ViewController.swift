@@ -17,23 +17,37 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
     let originViewController = GMSAutocompleteViewController()
     let destinationViewController = GMSAutocompleteViewController()
     var originLatitude = 0.0, originLongitude = 0.0, destinationLatitude = 0.0, destinationLongitude = 0.0
     var priorityValue = 0.0
+    
+    // Getting Current Location
+//    var locationManager = CLLocationManager()
+//    var currentLocation: CLLocation?
+//    var mapView: GMSMapView!
+//    var placesClient: GMSPlacesClient!
+//    var zoomLevel: Float = 15.0
+//    func enableLocationServices() {
+//        locationManager.delegate = self
+//        if CLLocationManager.authorizationStatus() == .notDetermined {
+//            locationManager.requestWhenInUseAuthorization()
+//        }
+//    }
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var safetySlider: UISlider!
-    
     @IBAction func presentOriginViewController(_ sender: Any) {
             originViewController.delegate = self
             present(originViewController, animated: true, completion: nil)
         }
+    @IBOutlet weak var originButton: UIButton!
     @IBAction func presentDestinationViewController(_ sender: Any) {
         destinationViewController.delegate = self
         present(destinationViewController, animated: true, completion: nil)
     }
-
+    @IBOutlet weak var destinationButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,10 +93,14 @@ extension ViewController:  GMSAutocompleteViewControllerDelegate {
         if viewController == originViewController {
             originLatitude = place.coordinate.latitude
             originLongitude = place.coordinate.longitude
+            originButton.setTitle("\(place.name)", for: UIControl.State.normal)
+            originButton.setTitleColor(UIColor.black, for: .normal)
         }
         else {
             destinationLatitude = place.coordinate.latitude
             destinationLongitude = place.coordinate.longitude
+            destinationButton.setTitle("\(place.name)", for: UIControl.State.normal)
+            destinationButton.setTitleColor(UIColor.black, for: .normal)
         }
         //print(place.coordinate.latitude)
         //print(place.name)

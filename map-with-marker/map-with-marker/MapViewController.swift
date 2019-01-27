@@ -13,20 +13,19 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var myMap: GMSMapView!
     @IBOutlet weak var routeUpdate: UITextView!
-    var route:GMSPath?
-    var journey: JourneyRequest?
+    
+    var route: GMSPath?
+    var journey: JourneyRequest? //pased by ViewController.prepare(for:)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        view = mapView
-        myMap.camera = camera
+        let camera = GMSCameraPosition.camera(withLatitude: 52.2053, longitude: 0.1218, zoom: 6.0)
+            myMap.camera = camera
         
         // Creates a marker in the center of the map.
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        marker.position = CLLocationCoordinate2D(latitude: 52.2053, longitude: 0.1218)
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = myMap
