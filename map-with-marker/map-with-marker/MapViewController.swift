@@ -19,17 +19,17 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 51.516, longitude: -0.150, zoom: 14.0)
 //        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
 //        view = mapView
         myMap.camera = camera
         
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = myMap
+//        // Creates a marker in the center of the map.
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.map = myMap
         
         self.view.bringSubviewToFront(routeUpdate)
     }
@@ -57,13 +57,26 @@ class MapViewController: UIViewController {
             let (data, response, error) = self.upload(request: self.journey!)
             MapViewController.removeSpinner(spinner: sv)
             DispatchQueue.main.async {
-                self.setupRoute()
+                self.setupRoute(data: data)
             }
         }
     }
     
-    func setupRoute(){
+    func setupRoute(data: Data!){
         print("Setting up route...")
+        let decoder = JSONDecoder()
+        let journeyInfo = try! decoder.decode(RouteInformation.self, from: data)
+        print(journeyInfo)
+        let path = GMSPath(fromEncodedPath: journeyInfo.overview_polyline.points)
+        let polyline = GMSPolyline(path: path)
+        print(polyline)
+        polyline.map = self.myMap
+        let northEastCoords = CLLocationCoordinate2DMake(CLLocationDegrees(journeyInfo.bounds.northeast.lat), CLLocationDegrees(journeyInfo.bounds.northeast.lng))
+        let southWestCoords = CLLocationCoordinate2DMake(CLLocationDegrees(journeyInfo.bounds.southwest.lat), CLLocationDegrees(journeyInfo.bounds.southwest.lng))
+        let bounds = GMSCoordinateBounds(coordinate: northEastCoords, coordinate: southWestCoords)
+        let camera = myMap.camera(for: bounds, insets: UIEdgeInsets())!
+        myMap.camera = camera
+        print(myMap.camera)
     }
 
     /*
@@ -101,3 +114,32 @@ extension MapViewController {
     }
 }
 
+
+struct RouteInformation: Codable{
+    var bounds: Bounds
+    var legs: [RouteLeg]
+    var overview_polyline: PolyLine
+}
+
+struct Bounds: Codable{
+    var northeast: Loc
+    var southwest: Loc
+}
+
+struct RouteLeg: Codable{
+    var distance: ValueWrapper
+    var duration: ValueWrapper
+}
+
+struct ValueWrapper: Codable{
+    var value: Float
+}
+
+struct PolyLine: Codable{
+    var points: String
+}
+
+struct Loc: Codable{
+    var lat: Float
+    var lng: Float
+}

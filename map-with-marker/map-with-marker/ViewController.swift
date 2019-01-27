@@ -55,8 +55,8 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        let origin = Location(latitude: Float(self.originLongitude),longitude: Float(self.originLatitude))
-        let destination = Location(latitude: Float(self.destinationLongitude), longitude: Float(self.destinationLatitude))
+        let origin = Location(latitude: Float(self.originLatitude),longitude: Float(self.originLongitude))
+        let destination = Location(latitude: Float(self.destinationLatitude), longitude: Float(self.destinationLongitude))
         let journey = JourneyRequest(origin: origin, destination: destination, arrive_by: MapTime(date: self.datePicker.date), safety_priority: self.safetySlider.value)
         if let destinationViewController = segue.destination as? MapViewController{
             destinationViewController.journey = journey
@@ -119,7 +119,8 @@ extension URLSession {
             data = $0; response = $1; error = $2 as NSError?
             semaphore.signal()
         }) .resume()
-        let timeout = DispatchTime.now() + Double(10000000000) / Double(NSEC_PER_SEC)
+        let timeout = DispatchTime.now() + Double(10000)
+//            / Double(NSEC_PER_SEC)
         
         semaphore.wait(timeout: timeout)
         
